@@ -1,15 +1,25 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {TaskType} from "./App"
+
 type TaskListPropsType = {
     tasks: Array<TaskType>
+    removeTask: (id: number) => void;
 }
 
-export const TaskList = (props: TaskListPropsType) => {
+export const TaskList: FC<TaskListPropsType> = ({tasks, removeTask}) => {
+    // const {tasks} = props //{}
+    // const tasks = props.tasks;
+    const tasksJSXElement = tasks.map(t => {
+        const onClickRemoveTask = () => removeTask(t.id)
+        return (<li key={t.id}><input type="checkbox" checked={t.isDone}/>
+                <span>{t.title}</span>
+                <button onClick={() => {onClickRemoveTask()}}>delete</button>
+               </li>
+        )
+    })
     return (
         <ul>
-            <li><input type="checkbox" checked={props.tasks[0].isDone}/> <span>{props.tasks[0].title}</span></li>
-            <li><input type="checkbox" checked={props.tasks[1].isDone}/> <span>{props.tasks[1].title}</span></li>
-            <li><input type="checkbox" checked={props.tasks[2].isDone}/> <span>{props.tasks[2].title}</span></li>
+            {tasksJSXElement}
         </ul>
 
     );
