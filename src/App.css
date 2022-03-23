@@ -6,3 +6,18 @@
 .App > div {
   margin-right: 50px;
 }
+.error {
+  border: 2px red solid;
+  outline: none;
+}
+.error-message{
+  color:red;
+}
+.btn-active{
+  background-color: cornflowerblue;
+  color: white;
+  font-weight: bold;
+}
+.isDone{
+  text-decoration: line-through;
+}

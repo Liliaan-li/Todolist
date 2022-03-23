@@ -1,20 +1,22 @@
 import React, {FC} from 'react';
 import {TaskType} from "./App"
+import Button from "./Button";
 
 type TaskListPropsType = {
     tasks: Array<TaskType>
-    removeTask: (id: number) => void;
+    removeTask: (id: string) => void
+    changeStatus: (id:string, isDone:boolean) => void
 }
 
-export const TaskList: FC<TaskListPropsType> = ({tasks, removeTask}) => {
-    // const {tasks} = props //{}
-    // const tasks = props.tasks;
+export const TaskList: FC<TaskListPropsType> = ({tasks, removeTask, changeStatus}) => {
     const tasksJSXElement = tasks.map(t => {
         const onClickRemoveTask = () => removeTask(t.id)
-        return (<li key={t.id}><input type="checkbox" checked={t.isDone}/>
+        return (
+            <li key={t.id} className={t.isDone? "isDone": ""}>
+                <input type="checkbox" checked={t.isDone} onChange={(e)=>changeStatus(t.id, e.currentTarget.checked)}/>
                 <span>{t.title}</span>
-                <button onClick={() => {onClickRemoveTask()}}>delete</button>
-               </li>
+                <Button title={"x"} onClickHandler={onClickRemoveTask}/>
+            </li>
         )
     })
     return (
